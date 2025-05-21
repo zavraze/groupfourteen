@@ -1,0 +1,79 @@
+{% extends 'layout/base.html' %}
+
+{% block 'title' %} Add User {% endblock 'title' %}
+
+{% block 'content' %}
+
+{% include 'include/Sidebar.html' %}
+{% include 'include/ToastMessage.html' %}
+
+<div class="p-2 sm:ml-64 mt-16 md:mt-14">
+    <form action="/user/add" method="post">
+        {% csrf_token %}
+        <div class="grid grid-cols-2 gap-4 mx-auto my-10">
+            <div class="col-span-2 md:col-span-1">
+                <div class="relative z-0 w-full mb-2 group">
+                  <input type="text" name="full_name" id="full_name" class="block py-2.5 px-2 w-full text-sm text-gray-900 rounded-sm  border-2 border-b-2 border-gray-300 appearance-none dark:border-gray-600 dark:focus:border-red-500 focus:outline-none focus:ring-0 focus:border-red-600 peer" placeholder=" " required value="{{ form_data.full_name|default:'' }}" />
+                  <label for="full_name" class="peer-focus:font-medium absolute left-3 text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-8 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-0 rtl:peer-focus:left-0 peer-focus:text-red-600 peer-focus:dark:text-red-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-80 peer-focus:-translate-y-8">Full Name</label>
+                </div>
+                <div class="relative z-0 w-full mb-1.5 group">
+                  <label for="gender" class="block text-sm font-medium mb-1.5">Gender</label>
+                    <select name="gender" id="gender" class="bg-gray-50 border border-red-700 text-gray-900 text-sm rounded-lg focus:ring-red-500 
+                    focus:border-red-500 block w-full p-2.5 dark:bg-red-600 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white 
+                    dark:focus:ring-red-500 dark:focus:border-red-500" required>
+                    <option value="" disabled selected>Select Gender</option>
+                    {% for gender in genders %}
+                    <option value="{{ gender.gender_id }}">{{ gender.gender }}</option>
+                    {% endfor %} </select>
+                </div>
+                <div class="relative z-0 w-full mb-8 group">
+                  <label for="birth_date" class="block text-sm font-medium mb-1.5">Birthdate</label>
+                  <input value="{{ form_data.birth_date|default:' '}}" id="birth_date" type="date" name="birth_date" class="bg-gray-50 border border-red-700 text-gray-900 text-sm rounded-lg focus:ring-red-500 
+                    focus:border-red-500 block w-full p-2.5 dark:bg-red-600 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white 
+                    dark:focus:ring-red-500 dark:focus:border-red-500" required>
+                </div>
+                <div class="relative z-0 w-full mb-5 group">
+                    <input type="text" name="address" id="address" value="{{ form_data.address|default:'' }}" class="block py-2.5 px-2 w-full text-sm text-gray-900 rounded-sm  border-2 border-b-2 border-gray-300 appearance-none dark:border-gray-600 dark:focus:border-red-500 focus:outline-none focus:ring-0 focus:border-red-600 peer" placeholder=" " required />
+                    <label for="address" class="peer-focus:font-medium absolute left-3 text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-8 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-0 rtl:peer-focus:left-auto peer-focus:text-red-600 peer-focus:dark:text-red-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-80 peer-focus:-translate-y-8">Address</label>
+                </div>
+                <div class="relative z-0 w-full mb-5 group">
+                    <input type="text" name="contact_number" id="contact_number" value="{{ form_data.contact_number|default:'' }}" class="block py-2.5 px-2 w-full text-sm text-gray-900 rounded-sm  border-2 border-b-2 border-gray-300 appearance-none dark:border-gray-600 dark:focus:border-red-500 focus:outline-none focus:ring-0 focus:border-red-600 peer" placeholder=" " required />
+                    <label for="contact_number" class="peer-focus:font-medium absolute left-3 text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-8 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-0 rtl:peer-focus:left-0 peer-focus:text-red-600 peer-focus:dark:text-red-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-80 peer-focus:-translate-y-8">Contact Number</label>
+                </div>
+            </div>
+            <div class="col-span-1 md:col-span-1">
+                <div class="relative z-0 w-full mb-8 group">
+                  <input type="text" name="email" id="email" value="{{ form_data.email|default:'' }}" class="block py-2.5 px-2 w-full text-sm text-gray-900 rounded-sm  border-2 border-b-2 border-gray-300 appearance-none dark:border-gray-600 dark:focus:border-red-500 focus:outline-none focus:ring-0 focus:border-red-600 peer" placeholder=" " />
+                  <label for="email" class="peer-focus:font-medium absolute left-3 text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-8 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-0 rtl:peer-focus:left-0 peer-focus:text-red-600 peer-focus:dark:text-red-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-80 peer-focus:-translate-y-8">Email</label>
+                </div>  
+
+                <div class="relative z-0 w-full mb-8 group">
+                  <input type="text" name="username" id="username" value="{{ form_data.username|default:'' }}" class="block py-2.5 px-2 w-full text-sm text-gray-900 rounded-sm  border-2 border-b-2 border-gray-300 appearance-none dark:border-gray-600 dark:focus:border-red-500 focus:outline-none focus:ring-0 focus:border-red-600 peer" placeholder=" " required />
+                  <label for="username" class="peer-focus:font-medium absolute left-3 text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-8 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-0 rtl:peer-focus:left-0 peer-focus:text-red-600 peer-focus:dark:text-red-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-80 peer-focus:-translate-y-8">Username</label>
+                </div>
+
+                <div class="relative z-0 w-full mb-8 group">
+                  <input type="password" name="password" id="password" class="block py-2.5 px-2 w-full text-sm text-gray-900 rounded-sm  border-2 border-b-2 border-gray-300 appearance-none dark:border-gray-600 dark:focus:border-red-500 focus:outline-none focus:ring-0 focus:border-red-600 peer" placeholder=" " required />
+                  <label for="password" class="peer-focus:font-medium absolute left-3 text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-8 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-0 rtl:peer-focus:left-0 peer-focus:text-red-600 peer-focus:dark:text-red-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-80 peer-focus:-translate-y-8">Passowrd</label>  
+                </div>
+
+
+                <div class="relative z-0 w-full mb-5 group">
+                  <input type="password" name="confirm_password" id="confirm_password" class="block py-2.5 px-2 w-full text-sm text-gray-900 rounded-sm  border-2 border-b-2 border-gray-300 appearance-none dark:border-gray-600 dark:focus:border-red-500 focus:outline-none focus:ring-0 focus:border-red-600 peer" placeholder=" " required />
+                  <label for="confirm_password" class="peer-focus:font-medium absolute left-3 text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-8 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-0 rtl:peer-focus:left-0 peer-focus:text-red-600 peer-focus:dark:text-red-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-80 peer-focus:-translate-y-8">Comfirm Password</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="flex justify-end">
+          <button type="submit" class="cursor-pointer relative inline-flex items-center justify-end p-0.5 mb-2 me-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-green-400 to-blue-600 group-hover:from-green-400 group-hover:to-blue-600 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-green-200 dark:focus:ring-green-800">
+            <span class="w-full border relative px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-green-500 rounded-md group-hover:bg-transparent group-hover:dark:bg-transparent">
+            Save User</span>
+          </button>
+        </div>
+
+    </form>
+</div>
+
+
+{% endblock 'content' %}
